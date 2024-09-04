@@ -40,9 +40,15 @@ dotnet sln $project_name.sln add $project_name.UseCases/$project_name.UseCases.c
 dotnet sln $project_name.sln add $project_name.Web/$project_name.Web.csproj
 
 # Set up project references
-dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.UseCases/$project_name.UseCases.csproj
 dotnet add $project_name.UseCases/$project_name.UseCases.csproj reference $project_name.Core/$project_name.Core.csproj
-dotnet add $project_name.UseCases/$project_name.UseCases.csproj reference $project_name.Infrastructure/$project_name.Infrastructure.csproj
+
+dotnet add $project_name.Infrastructure/$project_name.Infrastructure.csproj reference $project_name.Core/$project_name.Core.csproj
+dotnet add $project_name.Infrastructure/$project_name.Infrastructure.csproj reference $project_name.UseCases/$project_name.UseCases.csproj
+
+dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.Core/$project_name.Core.csproj
+dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.UseCases/$project_name.UseCases.csproj
+dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.Infrastructure/$project_name.Infrastructure.csproj
+
 
 # Optional: Add basic DI setup in the Web project (Startup.cs)
 startup_file="$project_name.Web/Startup.cs"
