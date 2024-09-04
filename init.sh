@@ -49,23 +49,6 @@ dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.Co
 dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.UseCases/$project_name.UseCases.csproj
 dotnet add $project_name.Web/$project_name.Web.csproj reference $project_name.Infrastructure/$project_name.Infrastructure.csproj
 
-
-# Optional: Add basic DI setup in the Web project (Startup.cs)
-startup_file="$project_name.Web/Startup.cs"
-
-# Add service registration for UseCases and Infrastructure in Startup.cs
-if grep -q "public void ConfigureServices(IServiceCollection services)" $startup_file; then
-    sed -i '/public void ConfigureServices(IServiceCollection services)/a \
-    \    // Register UseCase services\n\
-    \    // services.AddScoped<IYourService, YourService>();\n\
-    \n\
-    \    // Register Infrastructure services\n\
-    \    // services.AddScoped<IYourRepository, YourRepository>();\n\
-    \ ' $startup_file
-else
-    echo "Unable to find ConfigureServices method in Startup.cs"
-fi
-
 # Run the project to verify everything is set up correctly
 dotnet run --project $project_name.Web/$project_name.Web.csproj
 
